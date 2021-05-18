@@ -24,6 +24,11 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/
 
+RUN Rscript -e 'install.packages("BiocManager");BiocManager::install("rhdf5")' \
+    && Rscript -e 'install.packages(c("R.utils","rlang","assertthat","jsonlite"))' \
+    && Rscript -e 'install.packages(c("data.table","Matrix","multimode"))' \
+    && Rscript -e 'install.packages(c("dplyr","purrr","ggplot2","ids","DT"))'
+
 RUN cd /BarcodeTender-pipeline/ \
     && bash 00_setup.sh \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds

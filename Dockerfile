@@ -1,4 +1,4 @@
-FROM us.gcr.io/dev-pipeline-internal/google-r-base:v1.0
+FROM rstudio/r-base:3.6.3-centos8
 
 ## Copy the pipeline into the container
 ADD ./ /BarcodeTender-pipeline/
@@ -24,7 +24,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/
 
-RUN bash /BarcodeTender-pipeline/00_setup.sh
+RUN bash /BarcodeTender-pipeline/00_setup.sh \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 COPY auth_token /tmp/auth_token

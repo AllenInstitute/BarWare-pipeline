@@ -1,0 +1,6 @@
+[submodule "Barcounter-release"]
+	path = Barcounter-release
+	url = https://github.com/alleninstitute/Barcounter-release
+[submodule "BarMixer"]
+	path = BarMixer
+	url = https://github.com/alleninstitute/BarMixer

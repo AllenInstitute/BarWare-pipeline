@@ -68,7 +68,7 @@ rmd_path <- file.path(args$out_dir,
                       paste0(args$in_well,
                              "_hto_processing.Rmd"))
 
-file.copy(system.file("rmarkdown/hto_processing.Rmd", package = "HTOparser"),
+file.copy(system.file("rmarkdown/hto_processing.Rmd", package = "BarMixer"),
           rmd_path,
           overwrite = TRUE)
 

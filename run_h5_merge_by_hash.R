@@ -33,7 +33,7 @@ if(!dir.exists(args$out_dir)) {
 
 rmd_path <- file.path(args$out_dir,"merge_h5_by_hash.Rmd")
 
-file.copy(system.file("rmarkdown/merge_h5_by_hash.Rmd", package = "H5weaver"),
+file.copy(system.file("rmarkdown/merge_h5_by_hash.Rmd", package = "BarMixer"),
           rmd_path,
           overwrite = TRUE)
 

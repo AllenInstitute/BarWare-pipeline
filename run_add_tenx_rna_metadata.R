@@ -55,7 +55,7 @@ rmd_loc <- file.path(args$out_dir,
                      paste0(args$in_well,
                             "_add_tenx_rna_metadata.Rmd"))
 
-file.copy(system.file("rmarkdown/add_tenx_rna_metadata.Rmd", package = "H5weaver"),
+file.copy(system.file("rmarkdown/add_tenx_rna_metadata.Rmd", package = "BarMixer"),
           rmd_loc,
           overwrite = TRUE)
 

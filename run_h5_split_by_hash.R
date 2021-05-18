@@ -6,11 +6,6 @@ option_list <- list(
               default = NULL,
               help = "Input filtered_feature_bc_matrix.h5 file",
               metavar = "character"),
-  make_option(opt_str = c("-l","--in_mol"),
-              type = "character",
-              default = NULL,
-              help = "Input molecule_info.h5 file (Ignored/Deprecated)",
-              metavar = "character"),
   make_option(opt_str = c("-m","--in_mat"),
               type = "character",
               default = NULL,
@@ -55,14 +50,13 @@ rmd_path <- file.path(args$out_dir,
                       paste0(args$in_well,
                              "_split_h5_by_hash.Rmd"))
 
-file.copy(system.file("rmarkdown/split_h5_by_hash.Rmd", package = "H5weaver"),
+file.copy(system.file("rmarkdown/split_h5_by_hash.Rmd", package = "BarMixer"),
           rmd_path,
           overwrite = TRUE)
 
 rmarkdown::render(
   input = rmd_path,
   params = list(in_h5 = args$in_h5,
-                in_mol = args$in_mol,
                 in_mat = args$in_mat,
                 in_tbl  = args$in_tbl,
                 in_well = args$in_well,

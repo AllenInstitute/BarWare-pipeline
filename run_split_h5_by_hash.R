@@ -23,7 +23,8 @@ option_list <- list(
               metavar = "character")
 )
 
-opt_parser <- OptionParser(option_list = option_list)
+opt_parser <- OptionParser(option_list = option_list,
+                           add_help_option = FALSE)
 
 args <- parse_args(opt_parser)
 

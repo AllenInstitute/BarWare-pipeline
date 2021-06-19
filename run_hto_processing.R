@@ -61,14 +61,14 @@ if(!is.null(args$in_key) & args$in_type %in% c("barcounter","awk","cite")) {
 }
 
 if(!dir.exists(args$out_dir)) {
-  dir.create(args$out_dir)
+  dir.create(args$out_dir, recursive = TRUE)
 }
 
 rmd_path <- file.path(args$out_dir,
                       paste0(args$in_well,
                              "_hto_processing.Rmd"))
 
-file.copy(system.file("rmarkdown/hto_processing.Rmd", package = "BarMixer"),
+file.copy(system.file("hto_processing.Rmd", package = "BarMixer"),
           rmd_path,
           overwrite = TRUE)
 

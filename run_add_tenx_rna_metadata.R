@@ -48,14 +48,14 @@ if(is.null(args$out_html)) {
 }
 
 if(!dir.exists(args$out_dir)) {
-  dir.create(args$out_dir)
+  dir.create(args$out_dir, recursive = TRUE)
 }
 
 rmd_loc <- file.path(args$out_dir,
                      paste0(args$in_well,
                             "_add_tenx_rna_metadata.Rmd"))
 
-file.copy(system.file("rmarkdown/add_tenx_rna_metadata.Rmd", package = "BarMixer"),
+file.copy(system.file("add_tenx_rna_metadata.Rmd", package = "BarMixer"),
           rmd_loc,
           overwrite = TRUE)
 

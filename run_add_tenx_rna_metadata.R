@@ -34,7 +34,7 @@ args <- parse_args(opt_parser)
 
 if(is.null(args$out_html)) {
   print_help(opt_parser)
-  stop("No parameters supplied.")
+  stop("ERROR: Missing parameters.")
 }
 
 if(!dir.exists(args$out_dir)) {

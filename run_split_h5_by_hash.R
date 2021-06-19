@@ -36,8 +36,10 @@ if(!dir.exists(args$out_dir)) {
   dir.create(args$out_dir, recursive = TRUE)
 }
 
+in_pre <- sub(".h5","",basename(args$in_h5))
+
 rmd_path <- file.path(args$out_dir,
-                      paste0(args$in_well,
+                      paste0(in_pre,
                              "_split_h5_by_hash.Rmd"))
 
 file.copy(system.file("split_h5_by_hash.Rmd", package = "BarMixer"),

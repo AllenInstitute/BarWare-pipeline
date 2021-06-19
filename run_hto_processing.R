@@ -1,20 +1,15 @@
 library(optparse)
 
 option_list <- list(
-  make_option(opt_str = c("-t","--in_type"),
-              type = "character",
-              default = NULL,
-              help = "Type of HTO results. One of: barcounter, cite, awk, test_cite, or test_awk",
-              metavar = "character"),
   make_option(opt_str = c("-i","--in_file"),
               type = "character",
               default = NULL,
-              help = "Input HTO result input file",
+              help = "Input HTO Tag_Counts.csv file",
               metavar = "character"),
-  make_option(opt_str = c("-k","--in_key"),
+  make_option(opt_str = c("-k","--in_samples"),
               type = "character",
               default = NULL,
-              help = "Input HTO name key file",
+              help = "Input HTO SampleSheet.csv",
               metavar = "character"),
   make_option(opt_str = c("-w","--in_well"),
               type = "character",
@@ -52,14 +47,6 @@ if(is.null(args$in_type)) {
   stop("No parameters supplied.")
 }
 
-if(!is.null(args$in_key) & args$in_type %in% c("barcounter","awk","cite")) {
-  if(!file.exists(args$in_key)) {
-    stop(paste("HTO name key file",args$in_key, "not found. Check file name, or omit -k to use a default file for TotalseqA Human HTOs."))
-  }
-} else if(is.null(args$in_key) & args$in_type %in% c("barcounter","awk","cite")) {
-  args$in_key <- system.file("reference/SampleSheet_fallback.csv", package = "HTOparser")
-}
-
 if(!dir.exists(args$out_dir)) {
   dir.create(args$out_dir, recursive = TRUE)
 }
@@ -74,8 +61,7 @@ file.copy(system.file("hto_processing.Rmd", package = "BarMixer"),
 
 rmarkdown::render(
   input = rmd_path,
-  params = list(in_type = args$in_type,
-                in_file = args$in_file,
+  params = list(in_file = args$in_file,
                 in_key  = args$in_key,
                 in_well = args$in_well,
                 in_min_cutoff = args$in_min_cutoff,

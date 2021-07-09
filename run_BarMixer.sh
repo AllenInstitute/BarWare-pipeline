@@ -29,6 +29,8 @@ elt() {
   echo "Total time: " $(format_time $total_diff) "| Split time: " $(format_time $split_diff)
 }
 
+# Parameter check function
+
 check_param() {
   local pflag=$1
   local pname=$2
@@ -41,6 +43,8 @@ check_param() {
     echo  $(stm "PARAM ${pflag} ${pname}: ${pvar}") >&2
   fi
 }
+
+# File check functions
 
 check_file() {
   local pfile=$1
@@ -118,7 +122,7 @@ for w in ${!wells[@]}; do
   mkdir -p ${out_path}
 
   Rscript --vanilla \
-      BarcodeTender-pipeline/run_hto_processing.R \
+      ${pipeline_dir}/run_hto_processing.R \
         -i ${counts[$w]} \
         -s ${sample_sheet} \
         -w ${wells[$w]} \
@@ -136,7 +140,7 @@ for w in ${!wells[@]}; do
   mkdir -p ${out_path}
 
   Rscript --vanilla \
-    BarcodeTender-pipeline/run_add_tenx_rna_metadata.R \
+    ${pipeline_dir}/run_add_tenx_rna_metadata.R \
       -i ${outs[$w]} \
       -s ${sample_sheet} \
       -w ${wells[$w]} \
@@ -157,7 +161,7 @@ for w in ${!wells[@]}; do
   mkdir -p ${out_path}
 
   Rscript --vanilla \
-    BarcodeTender-pipeline/run_split_h5_by_hash.R \
+    ${pipeline_dir}/run_split_h5_by_hash.R \
       -i ${rna_meta}/${wells[$w]}.h5 \
       -h ${hto_processed} \
       -d ${out_path} \
@@ -174,7 +178,7 @@ out_path=${output_dir}/merged_h5
 mkdir -p ${out_path}
 
 Rscript --vanilla \
-    BarcodeTender-pipeline/run_merge_h5_by_hash.R \
+    ${pipeline_dir}/run_merge_h5_by_hash.R \
       -i ${split_path} \
       -d ${out_path} \
       -o ${out_path}/merge_report.html

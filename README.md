@@ -1,4 +1,4 @@
-## BarcodeTender-pipeline
+## BarWare-pipeline
 
 
 ## Installing and running the pipeline
@@ -6,19 +6,19 @@
 ### Repository retrieval and installation
 
 ```
-git clone https://github.com/AllenInstitute/BarcodeTender-pipeline
-cd BarcodeTender-pipeline
+git clone https://github.com/AllenInstitute/BarWare-pipeline
+cd BarWare-pipeline
 git submodule update --init
-R -e 'install.packages("BarMixer", source = TRUE, repos = NULL)'
+R -e 'install.packages("BarMixer", type = "source", repos = NULL)'
 ```
 
 ### Running the pipeline
 
 #### Stage 0: Run cellranger count
 
-The BarcodeTender pipeline is currently configured to demultiplex 10x Genomics 3' scRNA-seq data. Before analysis with BarCounter and BarMixer, we recommend that you run cellranger count to obtain the necessary scRNA-seq inputs for use with this pipeline.
+The BarWare pipeline is currently configured to demultiplex 10x Genomics 3' scRNA-seq data. Before analysis with BarCounter and BarMixer, we recommend that you run cellranger count to obtain the necessary scRNA-seq inputs for use with this pipeline.
 
-If you are using a different analysis pipeline or method and would like to utilize BarcodeTender, please let us know in the Issues page.
+If you are using a different analysis pipeline or method and would like to utilize BarWare, please let us know in the Issues page.
 
 #### Stage 1: Counting HTOs with BarCounter
 
@@ -52,7 +52,7 @@ The WellSheet.csv file specifies which wells will be demultiplexed. This .csv sh
 
 **Example WellSheet**
 ```
-WellID,BarCounts,CellRangerOuts
+well_id,bar_counts,cellranger_outs
 X017-P1C1W1,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W1/hto_counts/Pool-16-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W1/outs/
 X017-P1C1W2,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W2/hto_counts/Pool-24-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W2/outs/
 X017-P1C1W3,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/hto_counts/Pool-32-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/outs/
@@ -60,11 +60,11 @@ X017-P1C1W3,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/hto_counts/P
 
 Once these inputs are available, the BarMixer pipeline can be run using the `run_BarMixer.sh` shell script. This script has 3 parameters:
 - `-s`: the path to the samplesheet.csv file
-- `-w`: the path to the WellSheet.csv file
+- `-w`: the path to the wellsheet.csv file
 - `-o`: A directory to use for outputs
 
 ```
-bash BarcodeTender-pipeline/run_BarMixer.sh \
+bash BarWare-pipeline/run_BarMixer.sh \
   -s X017_samplesheet.csv
   -w X017_WellSheet.csv \
   -o X017_demultiplex_results
@@ -73,15 +73,15 @@ bash BarcodeTender-pipeline/run_BarMixer.sh \
 ## Using a docker image
 
 **Image retrieval**  
-A pre-built docker image containing the BarcodeTender pipeline can be downloaded from dockerhub using:
+A pre-built docker image containing the BarWare pipeline can be downloaded from dockerhub using:
 ```
-docker pull hypercompetent/barcodetender:latest
+docker pull hypercompetent/barware:latest
 ```
 
 **Image building**  
-If you would like to re-build the image, the Dockerfile is provided in the BarcodeTender-pipeline repository:
+If you would like to re-build the image, the Dockerfile is provided in the BarWare-pipeline repository:
 ```
-cd BarcodeTender-pipeline
-docker build ./ -t barcodetender:v1.0
+cd BarWare-pipeline
+docker build ./ -t barware:v1.0
 ```
 

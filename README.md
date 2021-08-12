@@ -22,16 +22,16 @@ If you are using a different analysis pipeline or method and would like to utili
 
 #### Stage 1: Counting HTOs with BarCounter
 
-**SampleSheet.csv**  
-The SampleSheet.csv file specifies which samples are associated with which barcodes. This .csv should have the following columns:  
-- SampleID: The name of each multiplexed sample
-- PoolID: An identifier for the pool of samples to demultiplex
-- HashName: The name of the HTOs used for hashing
-- HashTag: The sequence of the HTO barcodes used for hashing
+**samplesheet.csv**  
+The samplesheet.csv file specifies which samples are associated with which barcodes. This .csv should have the following columns:  
+- sample_id: The name of each multiplexed sample
+- pool_id: An identifier for the pool of samples to demultiplex
+- hash_name: The name of the HTOs used for hashing
+- hash_tag: The sequence of the HTO barcodes used for hashing
 
-**example SampleSheet**
+**example samplesheet**
 ```
-SampleID,PoolID,HashName,HashTag
+sample_id,pool_id,hash_name,hash_tag
 2735BW-MEM-1,X017-P1,HT1,GTCAACTCTTTAGCG
 2735BW-MEM-2,X017-P1,HT2,TGATGGCCTATTGGG
 2735BW-NIV-1,X017-P1,HT3,TTCCGCCTCTCTTTG
@@ -42,7 +42,7 @@ SampleID,PoolID,HashName,HashTag
 
 #### Stage 2: Demultiplexing and QC with BarMixer
 
-In addition to the SampleSheet.csv file defined above, you'll need an additional file to perform demultiplexing using the scripts in the `BarMixer` package:
+In addition to the samplesheet.csv file defined above, you'll need an additional file to perform demultiplexing using the scripts in the `BarMixer` package:
 
 **WellSheet.csv**
 The WellSheet.csv file specifies which wells will be demultiplexed. This .csv should have the following columns:
@@ -59,13 +59,13 @@ X017-P1C1W3,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/hto_counts/P
 ```
 
 Once these inputs are available, the BarMixer pipeline can be run using the `run_BarMixer.sh` shell script. This script has 3 parameters:
-- `-s`: the path to the SampleSheet.csv file
+- `-s`: the path to the samplesheet.csv file
 - `-w`: the path to the WellSheet.csv file
 - `-o`: A directory to use for outputs
 
 ```
 bash BarcodeTender-pipeline/run_BarMixer.sh \
-  -s X017_SampleSheet.csv
+  -s X017_samplesheet.csv
   -w X017_WellSheet.csv \
   -o X017_demultiplex_results
 ```

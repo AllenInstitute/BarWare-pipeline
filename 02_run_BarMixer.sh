@@ -88,7 +88,7 @@ done
 
 echo $(stm "START BarcodeTender Cell Hashing")
 echo $(check_param "-o" "Output Directory" ${output_dir})
-echo $(check_param "-s" "Input SampleSheet.csv" ${sample_sheet})
+echo $(check_param "-s" "Input samplesheet.csv" ${sample_sheet})
 echo $(check_param "-w" "Input WellSheet.csv" ${well_sheet})
 total_start_time="$(date -u +%s)"
 
@@ -108,10 +108,6 @@ done
 
 for out in ${outs}; do
   $(check_tenx ${out})
-done
-
-for sample_sheet in ${sample_sheets}; do
-  $(check_file ${sample_sheet})
 done
 
 echo $(stm "Processing HTO counts per well")
@@ -142,7 +138,6 @@ for w in ${!wells[@]}; do
   Rscript --vanilla \
     ${pipeline_dir}/stage_02/run_add_tenx_rna_metadata.R \
       -i ${outs[$w]} \
-      -s ${sample_sheet} \
       -w ${wells[$w]} \
       -d ${out_path} \
       -o ${out_path}/${wells[$w]}_well_metadata_report.html

@@ -81,8 +81,8 @@ A convenient wrapper script is provided in BarWare to run multiple wells in sequ
 For example:
 ```
 bash BarWare-pipeline/01_run_BarCounter.sh \
-  -b /shared/apps/cellranger-4.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz
-  -s $(pwd)/X017_samplesheet.csv
+  -b /shared/apps/cellranger-4.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz \
+  -s $(pwd)/X017_samplesheet.csv \
   -w $(pwd)/X017_WellSheet.csv \
   -o $(pwd)/X017_demultiplex_results
 ```
@@ -107,7 +107,7 @@ Note that the parameters `-s`, `-w`, and `-o` should be the same for both Stage 
 
 ```
 bash BarWare-pipeline/02_run_BarMixer.sh \
-  -s $(pwd)/X017_samplesheet.csv
+  -s $(pwd)/X017_samplesheet.csv \
   -w $(pwd)/X017_WellSheet.csv \
   -o $(pwd)/X017_demultiplex_results
 ```

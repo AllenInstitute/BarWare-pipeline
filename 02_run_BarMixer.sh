@@ -98,18 +98,19 @@ $(check_file ${sample_sheet})
 $(check_file ${well_sheet})
 
 wells=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $1}'))
-counts=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $2}'))
-outs=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $3}'))
+fq_prefixes=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $3}'))
+outs=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $4}'))
 
 echo $(stm "Checking Inputs")
 split_start_time="$(date -u +%s)"
 
-for count in ${counts}; do
-  $(check_file ${count})
-done
-
 for out in ${outs}; do
   $(check_tenx ${out})
+done
+
+for w in ${!wells[@]}; do
+  counts=${output_directory}/${wells[$w]}/hto_counts/${fq_prefixes[$w]}_Tag_Counts.csv
+  $(check_file ${counts})
 done
 
 echo $(stm "Processing HTO counts per well")

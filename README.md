@@ -53,9 +53,9 @@ The WellSheet.csv file specifies which wells will be demultiplexed. This .csv sh
 **Example WellSheet**
 ```
 well_id,bar_counts,cellranger_outs
-X017-P1C1W1,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W1/hto_counts/Pool-16-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W1/outs/
-X017-P1C1W2,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W2/hto_counts/Pool-24-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W2/outs/
-X017-P1C1W3,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/hto_counts/Pool-32-HTO_Tag_Counts.csv,/mnt/barcode-tender-manuscript/code-testing/X017-P1C1W3/outs/
+X017-P1C1W1,/mnt/barware-manuscript/code-testing/X017-P1C1W1/hto_counts/Pool-16-HTO_Tag_Counts.csv,/mnt/barware-manuscript/code-testing/X017-P1C1W1/outs/
+X017-P1C1W2,/mnt/barware-manuscript/code-testing/X017-P1C1W2/hto_counts/Pool-24-HTO_Tag_Counts.csv,/mnt/barware-manuscript/code-testing/X017-P1C1W2/outs/
+X017-P1C1W3,/mnt/barware-manuscript/code-testing/X017-P1C1W3/hto_counts/Pool-32-HTO_Tag_Counts.csv,/mnt/barware-manuscript/code-testing/X017-P1C1W3/outs/
 ```
 
 Once these inputs are available, the BarMixer pipeline can be run using the `run_BarMixer.sh` shell script. This script has 3 parameters:
@@ -64,7 +64,7 @@ Once these inputs are available, the BarMixer pipeline can be run using the `run
 - `-o`: A directory to use for outputs
 
 ```
-bash BarWare-pipeline/run_BarMixer.sh \
+bash BarWare-pipeline/02_run_BarMixer.sh \
   -s X017_samplesheet.csv
   -w X017_WellSheet.csv \
   -o X017_demultiplex_results
@@ -79,7 +79,7 @@ docker pull hypercompetent/barware:latest
 ```
 
 **Image building**  
-If you would like to re-build the image, the Dockerfile is provided in the BarWare-pipeline repository:
+If you would like to re-build the Docker image, the Dockerfile is provided in the BarWare-pipeline repository:
 ```
 cd BarWare-pipeline
 docker build ./ -t barware:v1.0

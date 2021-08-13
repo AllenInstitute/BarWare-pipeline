@@ -40,9 +40,9 @@ rmd_loc <- file.path(args$out_dir,
                      paste0(args$in_well,
                             "_add_tenx_rna_metadata.Rmd"))
 
-file.copy(system.file("add_tenx_rna_metadata.Rmd", package = "BarMixer"),
-          rmd_loc,
-          overwrite = TRUE)
+copy_lgl <- file.copy(system.file("add_tenx_rna_metadata.Rmd", package = "BarMixer"),
+                      rmd_loc,
+                      overwrite = TRUE)
 
 rmarkdown::render(
   input = rmd_loc,
@@ -53,4 +53,6 @@ rmarkdown::render(
   quiet = TRUE
 )
 
-file.remove(rmd_loc)
+rm_lgl <- file.remove(rmd_loc)
+
+BarMixer::stm(paste("HTML Report output:",args$out_html))

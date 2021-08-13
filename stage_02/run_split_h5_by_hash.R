@@ -43,9 +43,9 @@ rmd_path <- file.path(args$out_dir,
                       paste0(in_pre,
                              "_split_h5_by_hash.Rmd"))
 
-file.copy(system.file("split_h5_by_hash.Rmd", package = "BarMixer"),
-          rmd_path,
-          overwrite = TRUE)
+copy_lgl <-file.copy(system.file("split_h5_by_hash.Rmd", package = "BarMixer"),
+                     rmd_path,
+                     overwrite = TRUE)
 
 rmarkdown::render(
   input = rmd_path,
@@ -56,4 +56,7 @@ rmarkdown::render(
   quiet = TRUE
 )
 
-file.remove(rmd_path)
+rm_lgl <- file.remove(rmd_path)
+
+BarMixer::stm(paste("HTML Report output:",args$out_html))
+

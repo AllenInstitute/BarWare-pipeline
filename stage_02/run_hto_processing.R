@@ -55,9 +55,9 @@ rmd_path <- file.path(args$out_dir,
                       paste0(args$in_well,
                              "_hto_processing.Rmd"))
 
-file.copy(system.file("hto_processing.Rmd", package = "BarMixer"),
-          rmd_path,
-          overwrite = TRUE)
+copy_lgl <- file.copy(system.file("hto_processing.Rmd", package = "BarMixer"),
+                      rmd_path,
+                      overwrite = TRUE)
 
 rmarkdown::render(
   input = rmd_path,
@@ -71,4 +71,6 @@ rmarkdown::render(
   quiet = TRUE
 )
 
-file.remove(rmd_path)
+rm_lgl <- file.remove(rmd_path)
+
+BarMixer::stm(paste("HTML Report output:",args$out_html))

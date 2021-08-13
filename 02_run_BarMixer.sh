@@ -52,6 +52,8 @@ check_file() {
   if [ ! -f ${pfile} ]; then
     echo $(stm "ERROR ${pfile}: File Not Found. Exiting.") >&2
     kill -s TERM $TOP_PID
+  else
+    echo $(stm "Found input ${pfile}")
   fi
 }
 

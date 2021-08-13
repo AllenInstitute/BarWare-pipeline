@@ -30,7 +30,7 @@ RUN Rscript -e 'install.packages("BiocManager");BiocManager::install("rhdf5")' \
     && Rscript -e 'install.packages(c("dplyr","purrr","ggplot2","ids","DT"))' \
     && Rscript -e 'install.packages(c("optparse","rmarkdown"))'
 
-RUN cd /BarcodeTender-pipeline/ \
+RUN cd /BarWare-pipeline/ \
     && bash 00_setup.sh \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 

@@ -28,8 +28,9 @@ You'll need 3 critical input files before running the BarWare pipeline:
 **1: A Valid Cell Barcode list**  
 To run BarCounter, you'll need the list of valid cell barcodes used by cellranger for analysis. This can be found in the cellranger software directory, and may vary based on your 10x Genomics application:  
 ```
-cellranger-1.0.0/
-cellranger-
+cellranger-3.1.0/cellranger-cs/3.1.0/lib/python/cellranger/barcodes/
+cellranger-4.0.0/lib/python/cellranger/barcodes/
+cellranger-5.0.0/lib/python/cellranger/barcodes/
 ```
 
 **2: A Well Sheet .csv file**
@@ -80,7 +81,7 @@ A convenient wrapper script is provided in BarWare to run multiple wells in sequ
 For example:
 ```
 bash BarWare-pipeline/01_run_BarCounter.sh \
-  -b 
+  -b /shared/apps/cellranger-4.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz
   -s $(pwd)/X017_samplesheet.csv
   -w $(pwd)/X017_WellSheet.csv \
   -o $(pwd)/X017_demultiplex_results
@@ -90,8 +91,9 @@ Stage 1 will generate outputs for each well:
 ```
 <output_dir>/
   <well_id>/
-    <fastq_prefix>_Tag_Counts.csv
-    <fastq_prefix>_BarCounter.log
+    hto_counts/
+      <fastq_prefix>_Tag_Counts.csv
+      <fastq_prefix>_BarCounter.log
 ```
 
 #### Stage 2: Demultiplexing and QC with BarMixer

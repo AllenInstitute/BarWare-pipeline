@@ -98,15 +98,15 @@ if [ ! -d ${output_dir} ]; then
   mkdir -p ${output_dir}
 fi
 
-echo $(stm "$(elt $split_start_time $total_start_time)" )
-echo $(stm "Formatting Valid Barcode list")
-split_start_time="$(date -u +%s)"
-
-barlist_path=${output_dir}/BarCounter_valid_bc_list.txt
-
-cat ${barcode_list} \
-  | sed 's/-1//g' \
-  > ${barlist_path}
+# echo $(stm "$(elt $split_start_time $total_start_time)" )
+# echo $(stm "Formatting Valid Barcode list")
+# split_start_time="$(date -u +%s)"
+# 
+# barlist_path=${output_dir}/BarCounter_valid_bc_list.txt
+# 
+# cat ${barcode_list} \
+#   | sed 's/-1//g' \
+#   > ${barlist_path}
 
 echo $(stm "$(elt $split_start_time $total_start_time)" )
 echo $(stm "Building Taglist")
@@ -131,7 +131,7 @@ for w in ${!wells[@]}; do
   r2=$(ls -1 ${fq_paths[$w]}/${fq_prefixes[$w]}*R2*.fastq.gz | tr '\n' ',')
   
   ${pipeline_dir}/BarCounter-release/barcounter \
-    -w ${barlist_path} \
+    -w ${barcode_list} \
     -t ${taglist_path} \
     -1 ${r1} \
     -2 ${r2} \

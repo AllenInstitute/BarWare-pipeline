@@ -136,7 +136,9 @@ for w in ${!wells[@]}; do
     -1 ${r1} \
     -2 ${r2} \
     -o ${well_out}
-  
+
+  echo $(stm "$(elt $split_start_time $total_start_time)" )
+
 done
 
 echo $(stm "$(elt $split_start_time $total_start_time)" )

@@ -109,7 +109,7 @@ for out in ${outs}; do
 done
 
 for w in ${!wells[@]}; do
-  counts=${output_directory}/${wells[$w]}/hto_counts/${fq_prefixes[$w]}_Tag_Counts.csv
+  counts=${output_dir}/${wells[$w]}/hto_counts/${fq_prefixes[$w]}_Tag_Counts.csv
   $(check_file ${counts})
 done
 
@@ -117,12 +117,13 @@ echo $(stm "Processing HTO counts per well")
 split_start_time="$(date -u +%s)"
 
 for w in ${!wells[@]}; do
+  counts=${output_dir}/${wells[$w]}/hto_counts/${fq_prefixes[$w]}_Tag_Counts.csv
   out_path=${output_dir}/${wells[$w]}/hto_processed
   mkdir -p ${out_path}
 
   Rscript --vanilla \
       ${pipeline_dir}/stage_02/run_hto_processing.R \
-        -i ${counts[$w]} \
+        -i ${counts} \
         -s ${sample_sheet} \
         -w ${wells[$w]} \
         -d ${out_path} \

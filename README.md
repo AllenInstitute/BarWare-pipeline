@@ -6,7 +6,7 @@
 ### Repository retrieval and installation
 
 ```
-git clone https://github.com/AllenInstitute/BarWare-pipeline
+git clone git@github.com:AllenInstitute/BarWare-pipeline
 cd BarWare-pipeline
 git submodule update --init
 R -e 'install.packages("BarMixer", type = "source", repos = NULL)'

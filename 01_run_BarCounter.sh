@@ -61,10 +61,8 @@ pipeline_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Parse command-line arguments
 
-while getopts "b:s:w:o:" opt; do
+while getopts "s:w:o:" opt; do
   case $opt in
-    b) barcode_list="$OPTARG"
-    ;;
     s) sample_sheet="$OPTARG"
     ;;
     w) well_sheet="$OPTARG"
@@ -77,7 +75,7 @@ while getopts "b:s:w:o:" opt; do
 done
 
 echo $(stm "START BarWare HTO Counting")
-echo $(check_param "-b" "Valid Cell Barcode List" ${barcode_list})
+#echo $(check_param "-b" "Valid Cell Barcode List" ${barcode_list})
 echo $(check_param "-o" "Output Directory" ${output_dir})
 echo $(check_param "-s" "Input samplesheet.csv" ${sample_sheet})
 echo $(check_param "-w" "Input WellSheet.csv" ${well_sheet})
@@ -86,27 +84,18 @@ total_start_time="$(date -u +%s)"
 echo $(stm "Checking Inputs")
 split_start_time="$(date -u +%s)"
 
-$(check_file ${barcode_list})
+#$(check_file ${barcode_list})
 $(check_file ${sample_sheet})
 $(check_file ${well_sheet})
 
 wells=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $1}'))
 fq_paths=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $2}'))
 fq_prefixes=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $3}'))
+outs=($(cat ${well_sheet} | awk -F',' 'NR>1 {print $4}'))
 
 if [ ! -d ${output_dir} ]; then
   mkdir -p ${output_dir}
 fi
-
-# echo $(stm "$(elt $split_start_time $total_start_time)" )
-# echo $(stm "Formatting Valid Barcode list")
-# split_start_time="$(date -u +%s)"
-# 
-# barlist_path=${output_dir}/BarCounter_valid_bc_list.txt
-# 
-# cat ${barcode_list} \
-#   | sed 's/-1//g' \
-#   > ${barlist_path}
 
 echo $(stm "$(elt $split_start_time $total_start_time)" )
 echo $(stm "Building Taglist")
@@ -126,12 +115,19 @@ split_start_time="$(date -u +%s)"
 for w in ${!wells[@]}; do
   well_out=${output_dir}/${wells[$w]}/hto_counts
   mkdir -p ${well_out}
+  
+  barcode_list=${outs[$w]}/filtered_feature_bc_matrix/barcodes.tsv.gz
+  barlist_path=${well_out}/${fq_prefixes[$w]}_valid_barcodes.txt
+  
+  zcat ${barcode_list} \
+    | sed 's/-1//g' \
+    > ${barlist_path}
 
   r1=$(ls -1 ${fq_paths[$w]}/${fq_prefixes[$w]}*R1*.fastq.gz | tr '\n' ',')
   r2=$(ls -1 ${fq_paths[$w]}/${fq_prefixes[$w]}*R2*.fastq.gz | tr '\n' ',')
   
   ${pipeline_dir}/BarCounter-release/barcounter \
-    -w ${barcode_list} \
+    -w ${barlist_path} \
     -t ${taglist_path} \
     -1 ${r1} \
     -2 ${r2} \

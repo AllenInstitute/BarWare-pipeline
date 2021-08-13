@@ -23,17 +23,9 @@ If you are using a different analysis pipeline or method and would like to utili
 
 #### Before you run BarWare
 
-You'll need 3 critical input files before running the BarWare pipeline:
+You'll need 2 critical input files before running the BarWare pipeline:
 
-**1: A Valid Cell Barcode list**  
-To run BarCounter, you'll need the list of valid cell barcodes used by cellranger for analysis. This can be found in the cellranger software directory, and may vary based on your 10x Genomics application:  
-```
-cellranger-3.1.0/cellranger-cs/3.1.0/lib/python/cellranger/barcodes/
-cellranger-4.0.0/lib/python/cellranger/barcodes/
-cellranger-5.0.0/lib/python/cellranger/barcodes/
-```
-
-**2: A Well Sheet .csv file**
+**1: A Well Sheet .csv file**
 
 You will need to generate a Well Sheet .csv file to specify which wells will be demultiplexed. This .csv should have the following columns:
 - well_id: An identifier for each well
@@ -49,7 +41,7 @@ X017-P1C1W2,/mnt/barware-manuscript/X017_fastq/,Pool-24-HTO,/mnt/barware-manuscr
 X017-P1C1W3,/mnt/barware-manuscript/X017_fastq/,Pool-32-HTO,/mnt/barware-manuscript/code-testing/X017-P1C1W3/outs/
 ```
 
-**3: A Sample Sheet .csv file**
+**2: A Sample Sheet .csv file**
 
 The samplesheet.csv file specifies which samples are associated with which barcodes. This .csv should have the following columns:  
 - sample_id: The name of each multiplexed sample
@@ -73,7 +65,6 @@ With these in hand, you're ready for the BarWare pipeline.
 #### Stage 1: Counting HTOs with BarCounter
 
 A convenient wrapper script is provided in BarWare to run multiple wells in sequence using BarCounter: `01_run_BarCounter.sh`. This script has 4 parameters:
-- `-b`: the *full path* to the valid barcode list file
 - `-s`: the *full path* to the sample_sheet.csv file
 - `-w`: the *full path* to the well_sheet.csv file
 - `-o`: the *full path* of a directory to use for outputs
@@ -81,7 +72,6 @@ A convenient wrapper script is provided in BarWare to run multiple wells in sequ
 For example:
 ```
 bash BarWare-pipeline/01_run_BarCounter.sh \
-  -b /shared/apps/cellranger-4.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz \
   -s $(pwd)/X017_sample_sheet.csv \
   -w $(pwd)/X017_well_sheet.csv \
   -o $(pwd)/X017_demultiplex_results
@@ -94,6 +84,7 @@ Stage 1 will generate outputs for each well:
     hto_counts/
       <fastq_prefix>_Tag_Counts.csv
       <fastq_prefix>_BarCounter.log
+      <fastq_prefix>_valid_barcodes.txt
 ```
 
 #### Stage 2: Demultiplexing and QC with BarMixer

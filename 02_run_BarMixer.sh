@@ -88,7 +88,7 @@ while getopts "s:w:o:" opt; do
   esac
 done
 
-echo $(stm "START BarcodeTender Cell Hashing")
+echo $(stm "START BarWare Cell Hashing")
 echo $(check_param "-o" "Output Directory" ${output_dir})
 echo $(check_param "-s" "Input samplesheet.csv" ${sample_sheet})
 echo $(check_param "-w" "Input WellSheet.csv" ${well_sheet})
@@ -181,4 +181,4 @@ Rscript --vanilla \
       -o ${out_path}/merge_report.html
 
 echo $(stm "$(elt $split_start_time $total_start_time)" )
-echo $(stm "END BarcodeTender Cell Hashing")
+echo $(stm "END BarWare Cell Hashing")

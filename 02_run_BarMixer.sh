@@ -53,7 +53,7 @@ check_file() {
     echo $(stm "ERROR ${pfile}: File Not Found. Exiting.") >&2
     kill -s TERM $TOP_PID
   else
-    echo $(stm "Found input ${pfile}")
+    echo $(stm "Found input ${pfile}") >&2
   fi
 }
 

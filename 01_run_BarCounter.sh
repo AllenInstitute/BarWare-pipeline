@@ -134,6 +134,7 @@ for w in ${!wells[@]}; do
     -o ${well_out}
 
   echo $(stm "$(elt $split_start_time $total_start_time)" )
+  split_start_time="$(date -u +%s)"
 
 done
 

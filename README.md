@@ -35,7 +35,7 @@ You will need to generate a Well Sheet .csv file to specify which wells will be 
 
 **Example well_sheet.csv**
 ```
-well_id,bar_counts,cellranger_outs
+well_id,fastq_path,fastq_prefix,cellranger_outs
 X017-P1C1W1,/mnt/barware-manuscript/X017_fastq/,Pool-16-HTO,/mnt/barware-manuscript/code-testing/X017-P1C1W1/outs/
 X017-P1C1W2,/mnt/barware-manuscript/X017_fastq/,Pool-24-HTO,/mnt/barware-manuscript/code-testing/X017-P1C1W2/outs/
 X017-P1C1W3,/mnt/barware-manuscript/X017_fastq/,Pool-32-HTO,/mnt/barware-manuscript/code-testing/X017-P1C1W3/outs/

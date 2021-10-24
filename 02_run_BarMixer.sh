@@ -126,6 +126,7 @@ for w in ${!wells[@]}; do
         -i ${counts} \
         -s ${sample_sheet} \
         -w ${wells[$w]} \
+        -c 10 \
         -d ${out_path} \
         -o ${out_path}/${wells[$w]}_hto_report.html
 done

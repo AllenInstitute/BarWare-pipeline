@@ -144,6 +144,7 @@ for w in ${!wells[@]}; do
     ${pipeline_dir}/stage_02/run_add_tenx_rna_metadata.R \
       -i ${outs[$w]} \
       -w ${wells[$w]} \
+      -s ${sample_sheet} \
       -d ${out_path} \
       -o ${out_path}/${wells[$w]}_well_metadata_report.html
 done
